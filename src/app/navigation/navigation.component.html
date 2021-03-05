@@ -1,0 +1,19 @@
+<nav class="navigation">
+  <div class="navigation__container">
+    <ng-template [ngIf]="user" [ngIfElse]="visitorBlock">
+      <span class="navigation__item navigation__item--right">
+        Logged in as
+        <a routerLink="/users/{{ user!.id }}">{{ user!.username }}</a
+        >.
+      </span>
+      <a class="navigation__item" routerLink="/logout">Logout</a>
+    </ng-template>
+    <ng-template #visitorBlock>
+      <a class="navigation__item" routerLink="/">Home</a>
+      <a class="navigation__item navigation__item--right" routerLink="/register"
+        >Register</a
+      >
+      <a class="navigation__item" routerLink="/login">Login</a>
+    </ng-template>
+  </div>
+</nav>

@@ -6,9 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { FromNowPipe } from './from-now.pipe';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
-  declarations: [AppComponent, PostsListComponent, FromNowPipe],
+  declarations: [AppComponent, PostsListComponent, FromNowPipe, NavigationComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

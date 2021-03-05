@@ -1,0 +1,23 @@
+@import "../../mixins";
+
+.navigation {
+  height: 40px;
+  border-bottom: 1px solid #e0e0e0;
+
+  &__container {
+    @include container;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__item {
+    & + & {
+      margin-left: 16px;
+    }
+
+    &--right {
+      margin-left: auto !important;
+    }
+  }
+}
