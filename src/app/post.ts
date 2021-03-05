@@ -1,9 +1,6 @@
-type PostRating = -1 | 1;
+import { User } from './user';
 
-interface User {
-  id: number;
-  username: string;
-}
+type PostRating = -1 | 1;
 
 export interface Post {
   comment_count: number;
