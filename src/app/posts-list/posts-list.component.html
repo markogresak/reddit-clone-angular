@@ -1,3 +1,51 @@
-<div *ngFor="let post of posts">
-  {{ post.title }}
+<div *ngFor="let post of posts" class="post-item">
+  <div class="post-rating-buttons">
+    <button
+      type="button"
+      class="post-rating-vote-button post-rating-vote-button--up"
+      [ngClass]="{
+        'post-rating-vote-button--vote-up': post.user_post_rating === 1,
+        'post-rating-vote-button--vote-down': post.user_post_rating === -1
+      }"
+    >
+      <span class="visually-hidden">Vote up</span>
+    </button>
+    <div
+      class="post-rating"
+      [ngClass]="{
+        'post-rating--vote-up': post.user_post_rating === 1,
+        'post-rating--vote-down': post.user_post_rating === -1
+      }"
+    >
+      {{ post.rating }}
+    </div>
+    <button
+      type="button"
+      class="post-rating-vote-button post-rating-vote-button--down"
+      [ngClass]="{
+        'post-rating-vote-button--vote-up': post.user_post_rating === 1,
+        'post-rating-vote-button--vote-down': post.user_post_rating === -1
+      }"
+    >
+      <span class="visually-hidden">Vote down</span>
+    </button>
+  </div>
+  <div class="post-content">
+    <span *ngIf="post.url">
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <small class="external-url-domain">
+        {{ this.extractPostUrlDomain(post) }}
+      </small>
+    </span>
+    <a *ngIf="!post.url" routerLink="/post/{{ post.id }}">{{ post.title }}</a>
+    <div class="post-details">
+      Submitted {{ post.submitted_at | fromNow }} by
+      <a routerLink="/users/{{ post.user.id }}"> {{ post.user.username }}</a>
+    </div>
+    <div>
+      <a class="post-comment-count" routerLink="/post/{{ post.id }}"
+        >{{ post.comment_count }} comments</a
+      >
+    </div>
+  </div>
 </div>
