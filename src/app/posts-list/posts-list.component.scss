@@ -1,6 +1,4 @@
 $post-spacing: 15px;
-$post-height: 50px;
-$rating-buttons-width: 50px;
 $vote-arrow-size: 10px;
 $vote-default-color: #c6c6c6;
 $vote-up-color: #ff8b60;
@@ -8,22 +6,22 @@ $vote-down-color: #9494ff;
 
 .post-item {
   display: flex;
+  align-items: center;
   margin-top: $post-spacing;
-  min-height: $post-height;
+  min-height: 50px;
 }
 
 .post-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex-basis: calc(100% - #{$rating-buttons-width});
 }
 
 .post-rating-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-basis: $rating-buttons-width;
+  margin-right: $post-spacing;
 }
 
 .post-rating-vote-button {
