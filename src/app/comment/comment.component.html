@@ -29,23 +29,29 @@
 
   <div>
     <div class="post-comment__details">
-      <button class="post-comment__collapse-button">-</button>
+      <button class="post-comment__collapse-button" (click)="toggleCollapsed()">
+        {{ collapsed ? '+' : '-' }}
+      </button>
       <a routerLink="/users/{{ comment.user.id }}">{{
         comment.user.username
       }}</a>
       <span class="post-comment__points"> {{ comment.rating }} points</span>
       <span> {{ comment.submitted_at | fromNow }}</span>
     </div>
-    <div class="post-comment__content">
-      {{ comment.text }}
-    </div>
-    <div class="post-comment__nested-comments">
-      <app-comment
-        *ngFor="let childComment of childComments"
-        [comment]="childComment"
-        [allComments]="allComments"
-        [nested]="true"
-      ></app-comment>
+    <div
+      class="post-comment__content"
+      [ngClass]="{ 'post-comment__content--collapsed': collapsed }"
+    >
+      <span>{{ comment.text }}</span>
+
+      <div class="post-comment__nested-comments">
+        <app-comment
+          *ngFor="let childComment of childComments"
+          [comment]="childComment"
+          [allComments]="allComments"
+          [nested]="true"
+        ></app-comment>
+      </div>
     </div>
   </div>
 </div>

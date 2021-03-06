@@ -12,6 +12,7 @@ export class CommentComponent implements OnInit {
   @Input() nested: boolean = false;
 
   childComments: Comment[];
+  collapsed: boolean = false;
 
   constructor() {}
 
@@ -19,5 +20,9 @@ export class CommentComponent implements OnInit {
     this.childComments = this.allComments.filter(
       (comment) => comment.parent_comment_id === this.comment.id,
     );
+  }
+
+  toggleCollapsed() {
+    this.collapsed = !this.collapsed;
   }
 }
