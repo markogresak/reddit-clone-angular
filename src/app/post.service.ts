@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Post } from './post';
+import { DetailedPost } from './detailed-post';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,13 @@ export class PostService {
     return this.http.get<{ data: Post[] }>(this.postsUrl).pipe(
       map((response) => response.data),
       catchError(this.handleError<Post[]>('getPosts', [])),
+    );
+  }
+
+  getPost(id: number): Observable<DetailedPost> {
+    return this.http.get<{ data: DetailedPost }>(`${this.postsUrl}/${id}`).pipe(
+      map((response) => response.data),
+      catchError(this.handleError<DetailedPost>(`getPost id=${id}`)),
     );
   }
 

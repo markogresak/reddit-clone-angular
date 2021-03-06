@@ -1,1 +1,12 @@
-<p>post-detail works! id = {{ id }}</p>
+<div *ngIf="post" class="post-detail">
+  <app-post-item [post]="post"></app-post-item>
+
+  <div *ngIf="post.text" class="post-detail__text">{{ post.text }}</div>
+
+  <div class="post-detail__content-container">
+    <div>
+      <strong>{{ post.comment_count }} comments</strong>
+      <hr />
+    </div>
+  </div>
+</div>
