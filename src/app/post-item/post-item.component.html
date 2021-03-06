@@ -1,0 +1,51 @@
+<div class="post-item">
+  <div class="post-item__rating-container">
+    <button
+      type="button"
+      class="post-item__rating-vote-button post-item__rating-vote-button--up"
+      [ngClass]="{
+        'post-item__rating-vote-button--vote-up': post.user_post_rating === 1,
+        'post-item__rating-vote-button--vote-down': post.user_post_rating === -1
+      }"
+    >
+      <span class="visually-hidden">Vote up</span>
+    </button>
+    <div
+      class="post-item__rating"
+      [ngClass]="{
+        'post-item__rating--vote-up': post.user_post_rating === 1,
+        'post-item__rating--vote-down': post.user_post_rating === -1
+      }"
+    >
+      {{ post.rating }}
+    </div>
+    <button
+      type="button"
+      class="post-item__rating-vote-button post-item__rating-vote-button--down"
+      [ngClass]="{
+        'post-item__rating-vote-button--vote-up': post.user_post_rating === 1,
+        'post-item__rating-vote-button--vote-down': post.user_post_rating === -1
+      }"
+    >
+      <span class="visually-hidden">Vote down</span>
+    </button>
+  </div>
+  <div class="post-item__content">
+    <span *ngIf="post.url">
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <small class="post-item__external-url-domain">{{
+        post.url | domainOnly
+      }}</small>
+    </span>
+    <a *ngIf="!post.url" routerLink="/posts/{{ post.id }}">{{ post.title }}</a>
+    <div class="post-item__details">
+      Submitted {{ post.submitted_at | fromNow }} by
+      <a routerLink="/users/{{ post.user.id }}"> {{ post.user.username }}</a>
+    </div>
+    <div>
+      <a class="post-item__comment-count" routerLink="/posts/{{ post.id }}"
+        >{{ post.comment_count }} comments</a
+      >
+    </div>
+  </div>
+</div>

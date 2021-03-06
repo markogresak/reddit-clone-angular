@@ -21,16 +21,4 @@ export class PostsListComponent implements OnInit {
       this.posts = posts;
     });
   }
-
-  extractPostUrlDomain(post: Post): string {
-    if (!post.url) {
-      return '';
-    }
-
-    try {
-      return new URL(post.url).host;
-    } catch {
-      return '';
-    }
-  }
 }
