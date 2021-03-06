@@ -14,4 +14,12 @@ export class UserComponent implements OnInit {
   get id(): number {
     return Number(this.route.snapshot.paramMap.get('id'));
   }
+
+  get tab(): 'posts' | 'comments' | null {
+    const tab = this.route.snapshot.paramMap.get('tab');
+    if (tab === 'posts' || tab === 'comments') {
+      return tab;
+    }
+    return null;
+  }
 }
