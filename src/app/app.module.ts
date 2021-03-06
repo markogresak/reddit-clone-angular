@@ -13,6 +13,7 @@ import { UserComponent } from './user/user.component';
 import { LogoutComponent } from './logout/logout.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { DomainOnlyPipe } from './domain-only.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     LogoutComponent,
     NewPostComponent,
     PostDetailComponent,
+    DomainOnlyPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
