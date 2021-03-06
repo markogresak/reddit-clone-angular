@@ -15,6 +15,7 @@ import { NewPostComponent } from './new-post/new-post.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostItemComponent } from './post-item/post-item.component';
 import { DomainOnlyPipe } from './domain-only.pipe';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DomainOnlyPipe } from './domain-only.pipe';
     PostDetailComponent,
     PostItemComponent,
     DomainOnlyPipe,
+    CommentComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

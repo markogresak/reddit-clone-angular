@@ -9,4 +9,9 @@
       <hr />
     </div>
   </div>
+
+  <app-comment
+    *ngFor="let comment of topLevelComments"
+    [comment]="comment"
+  ></app-comment>
 </div>
