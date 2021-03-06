@@ -41,13 +41,13 @@
         {{ this.extractPostUrlDomain(post) }}
       </small>
     </span>
-    <a *ngIf="!post.url" routerLink="/post/{{ post.id }}">{{ post.title }}</a>
+    <a *ngIf="!post.url" routerLink="/posts/{{ post.id }}">{{ post.title }}</a>
     <div class="post-list-item__details">
       Submitted {{ post.submitted_at | fromNow }} by
       <a routerLink="/users/{{ post.user.id }}"> {{ post.user.username }}</a>
     </div>
     <div>
-      <a class="post-list-item__comment-count" routerLink="/post/{{ post.id }}"
+      <a class="post-list-item__comment-count" routerLink="/posts/{{ post.id }}"
         >{{ post.comment_count }} comments</a
       >
     </div>
