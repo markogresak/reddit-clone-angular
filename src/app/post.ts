@@ -1,6 +1,5 @@
+import { UserRating } from './UserRating';
 import { User } from './user';
-
-type PostRating = -1 | 1;
 
 export interface Post {
   comment_count: number;
@@ -22,6 +21,6 @@ export interface Post {
    * The value is null when the post is not rated or when
    * the user is not logged in.
    */
-  user_post_rating: PostRating | null;
+  user_post_rating: UserRating | null;
   user: User;
 }
