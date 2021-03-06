@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DetailedUser } from '../detailed-user';
+import { UserTab } from '../user-tab.enum';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user',
@@ -7,19 +10,34 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  user: DetailedUser;
+  UserTab = UserTab;
 
-  ngOnInit(): void {}
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+  ) {}
+
+  ngOnInit(): void {
+    this.getUser();
+  }
+
+  getUser(): void {
+    this.userService.getUser(this.id).subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   get id(): number {
     return Number(this.route.snapshot.paramMap.get('id'));
   }
 
-  get tab(): 'posts' | 'comments' | null {
+  get tab(): UserTab | null {
     const tab = this.route.snapshot.paramMap.get('tab');
-    if (tab === 'posts' || tab === 'comments') {
-      return tab;
-    }
-    return null;
+    return this.isUserTab(tab) ? tab : null;
+  }
+
+  private isUserTab(value: any): value is UserTab {
+    return Object.values(UserTab).includes(value);
   }
 }

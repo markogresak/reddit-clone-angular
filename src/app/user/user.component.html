@@ -1,1 +1,29 @@
-<p>user works! id = {{ id }}, tab = {{ tab }}</p>
+<div class="user" *ngIf="user">
+  <h1>User {{ user.username }}</h1>
+
+  <div class="user__tabs">
+    <a routerLink="/users/{{ user.id }}/posts" class="user__tab-item">
+      Posts
+    </a>
+    <a routerLink="/users/{{ user.id }}/comments" class="user__tab-item">
+      Comments
+    </a>
+  </div>
+
+  <hr />
+
+  <ng-template [ngIf]="tab === UserTab.Comments">
+    <app-comment
+      *ngFor="let comment of user.comments"
+      [comment]="comment"
+      [allComments]="user.comments"
+      [hideNested]="true"
+    ></app-comment>
+  </ng-template>
+  <ng-template [ngIf]="tab === UserTab.Posts">
+    <app-post-item
+      *ngFor="let post of user.posts"
+      [post]="post"
+    ></app-post-item>
+  </ng-template>
+</div>

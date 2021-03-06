@@ -1,4 +1,4 @@
-<div class="post-comment" [ngClass]="{ 'post-comment--nested': nested }">
+<div class="post-comment" [ngClass]="{ 'post-comment--nested': isNested }">
   <div class="post-comment__rating-container">
     <button
       type="button"
@@ -44,12 +44,12 @@
     >
       <span>{{ comment.text }}</span>
 
-      <div class="post-comment__nested-comments">
+      <div class="post-comment__nested-comments" *ngIf="!hideNested">
         <app-comment
           *ngFor="let childComment of childComments"
           [comment]="childComment"
           [allComments]="allComments"
-          [nested]="true"
+          [isNested]="true"
         ></app-comment>
       </div>
     </div>

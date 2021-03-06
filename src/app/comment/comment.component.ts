@@ -9,7 +9,8 @@ import { Comment } from '../comment';
 export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() allComments: Comment[];
-  @Input() nested: boolean = false;
+  @Input() isNested: boolean = false;
+  @Input() hideNested: boolean = false;
 
   childComments: Comment[];
   collapsed: boolean = false;
