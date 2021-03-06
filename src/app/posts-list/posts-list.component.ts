@@ -9,6 +9,7 @@ import { PostService } from '../post.service';
 })
 export class PostsListComponent implements OnInit {
   posts: Post[] = [];
+  isLoading: boolean;
 
   constructor(private postService: PostService) {}
 
@@ -17,7 +18,9 @@ export class PostsListComponent implements OnInit {
   }
 
   getPosts(): void {
+    this.isLoading = true;
     this.postService.getPosts().subscribe((posts) => {
+      this.isLoading = false;
       this.posts = posts;
     });
   }

@@ -1,29 +1,34 @@
-<div class="user" *ngIf="user">
-  <h1>User {{ user.username }}</h1>
+<ng-template [ngIf]="user" [ngIfElse]="loading">
+  <div class="user">
+    <h1>User {{ user.username }}</h1>
 
-  <div class="user__tabs">
-    <a routerLink="/users/{{ user.id }}/posts" class="user__tab-item">
-      Posts
-    </a>
-    <a routerLink="/users/{{ user.id }}/comments" class="user__tab-item">
-      Comments
-    </a>
+    <div class="user__tabs">
+      <a routerLink="/users/{{ user.id }}/posts" class="user__tab-item">
+        Posts
+      </a>
+      <a routerLink="/users/{{ user.id }}/comments" class="user__tab-item">
+        Comments
+      </a>
+    </div>
+
+    <hr />
+
+    <ng-template [ngIf]="tab === UserTab.Comments">
+      <app-comment
+        *ngFor="let comment of user.comments"
+        [comment]="comment"
+        [allComments]="user.comments"
+        [hideNested]="true"
+      ></app-comment>
+    </ng-template>
+    <ng-template [ngIf]="tab === UserTab.Posts">
+      <app-post-item
+        *ngFor="let post of user.posts"
+        [post]="post"
+      ></app-post-item>
+    </ng-template>
   </div>
-
-  <hr />
-
-  <ng-template [ngIf]="tab === UserTab.Comments">
-    <app-comment
-      *ngFor="let comment of user.comments"
-      [comment]="comment"
-      [allComments]="user.comments"
-      [hideNested]="true"
-    ></app-comment>
-  </ng-template>
-  <ng-template [ngIf]="tab === UserTab.Posts">
-    <app-post-item
-      *ngFor="let post of user.posts"
-      [post]="post"
-    ></app-post-item>
-  </ng-template>
-</div>
+</ng-template>
+<ng-template #loading>
+  <div>Loading...</div>
+</ng-template>

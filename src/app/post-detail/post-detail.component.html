@@ -1,18 +1,23 @@
-<div *ngIf="post" class="post-detail">
-  <app-post-item [post]="post"></app-post-item>
+<ng-template [ngIf]="post" [ngIfElse]="loading">
+  <div class="post-detail">
+    <app-post-item [post]="post"></app-post-item>
 
-  <div *ngIf="post.text" class="post-detail__text">{{ post.text }}</div>
+    <div *ngIf="post.text" class="post-detail__text">{{ post.text }}</div>
 
-  <div class="post-detail__content-container">
-    <div>
-      <strong>{{ post.comment_count }} comments</strong>
-      <hr />
+    <div class="post-detail__content-container">
+      <div>
+        <strong>{{ post.comment_count }} comments</strong>
+        <hr />
+      </div>
     </div>
-  </div>
 
-  <app-comment
-    *ngFor="let comment of topLevelComments"
-    [comment]="comment"
-    [allComments]="post.comments"
-  ></app-comment>
-</div>
+    <app-comment
+      *ngFor="let comment of topLevelComments"
+      [comment]="comment"
+      [allComments]="post.comments"
+    ></app-comment>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div>Loading...</div>
+</ng-template>
