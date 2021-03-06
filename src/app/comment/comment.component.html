@@ -1,1 +1,51 @@
-<p>{{ comment.text }}</p>
+<div class="post-comment" [ngClass]="{ 'post-comment--nested': nested }">
+  <div class="post-comment__rating-container">
+    <button
+      type="button"
+      class="post-comment__rating-vote-button post-comment__rating-vote-button--up"
+      [ngClass]="{
+        'post-comment__rating-vote-button--vote-up':
+          comment.user_comment_rating === 1,
+        'post-comment__rating-vote-button--vote-down':
+          comment.user_comment_rating === -1
+      }"
+    >
+      <span class="visually-hidden">Vote up</span>
+    </button>
+    <div class="post-comment__rating-spacer"></div>
+    <button
+      type="button"
+      class="post-comment__rating-vote-button post-comment__rating-vote-button--down"
+      [ngClass]="{
+        'post-comment__rating-vote-button--vote-up':
+          comment.user_comment_rating === 1,
+        'post-comment__rating-vote-button--vote-down':
+          comment.user_comment_rating === -1
+      }"
+    >
+      <span class="visually-hidden">Vote down</span>
+    </button>
+  </div>
+
+  <div>
+    <div class="post-comment__details">
+      <button class="post-comment__collapse-button">-</button>
+      <a routerLink="/users/{{ comment.user.id }}">{{
+        comment.user.username
+      }}</a>
+      <span class="post-comment__points"> {{ comment.rating }} points</span>
+      <span> {{ comment.submitted_at | fromNow }}</span>
+    </div>
+    <div class="post-comment__content">
+      {{ comment.text }}
+    </div>
+    <div class="post-comment__nested-comments">
+      <app-comment
+        *ngFor="let childComment of childComments"
+        [comment]="childComment"
+        [allComments]="allComments"
+        [nested]="true"
+      ></app-comment>
+    </div>
+  </div>
+</div>

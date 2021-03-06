@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FromNowPipe } from '../from-now.pipe';
 
 import { CommentComponent } from './comment.component';
 
@@ -22,7 +23,7 @@ describe('CommentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CommentComponent],
+      declarations: [CommentComponent, FromNowPipe],
     }).compileComponents();
   });
 
@@ -30,6 +31,7 @@ describe('CommentComponent', () => {
     fixture = TestBed.createComponent(CommentComponent);
     component = fixture.componentInstance;
     component.comment = mockComment;
+    component.allComments = [mockComment];
     fixture.detectChanges();
   });
 

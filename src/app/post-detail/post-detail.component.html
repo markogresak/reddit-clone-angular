@@ -13,5 +13,6 @@
   <app-comment
     *ngFor="let comment of topLevelComments"
     [comment]="comment"
+    [allComments]="post.comments"
   ></app-comment>
 </div>

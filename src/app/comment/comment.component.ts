@@ -8,8 +8,16 @@ import { Comment } from '../comment';
 })
 export class CommentComponent implements OnInit {
   @Input() comment: Comment;
+  @Input() allComments: Comment[];
+  @Input() nested: boolean = false;
+
+  childComments: Comment[];
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.childComments = this.allComments.filter(
+      (comment) => comment.parent_comment_id === this.comment.id,
+    );
+  }
 }

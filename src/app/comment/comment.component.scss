@@ -1,0 +1,61 @@
+@import "../../mixins";
+
+.post-comment {
+  display: flex;
+  margin-top: 15px;
+
+  &--nested {
+    margin-top: 10px;
+  }
+
+  &__rating-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+  }
+
+  @include vote-buttons($vote-arrow-size: 8px);
+
+  &__rating-spacer {
+    height: 8px;
+  }
+
+  &__details {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+  }
+
+  &__collapse-button {
+    margin-right: 8px;
+    cursor: pointer;
+    color: #888;
+    // Reset button style
+    border: none;
+    background: none;
+    padding: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:before {
+      content: "[ ";
+    }
+
+    &:after {
+      content: " ]";
+    }
+  }
+
+  &__points {
+    font-weight: bold;
+    color: #111;
+  }
+
+  &__nested-comments {
+    border-left: 1px solid #e0e0e0;
+    padding-left: 16px;
+  }
+}
