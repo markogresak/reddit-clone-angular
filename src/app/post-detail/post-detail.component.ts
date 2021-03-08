@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DetailedPost } from '../detailed-post';
-import { Comment } from '../comment';
+import { Store, select } from '@ngrx/store';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { PostService } from '../post.service';
+import { AppState } from '../state/AppState';
+import {
+  loadPostDetails,
+  loadPostDetailsFailure,
+  loadPostDetailsSuccess,
+} from '../state/post-detail.actions';
+import { selectPost } from '../state/post-detail.selectors';
 
 @Component({
   selector: 'app-post-detail',
@@ -10,28 +18,38 @@ import { PostService } from '../post.service';
   styleUrls: ['./post-detail.component.scss'],
 })
 export class PostDetailComponent implements OnInit {
-  post: DetailedPost;
-  topLevelComments: Comment[];
+  post$ = this.store.pipe(
+    select((state) => selectPost(state, { id: this.id })),
+  );
 
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
+    private store: Store<AppState>,
   ) {}
 
   ngOnInit(): void {
-    this.getPost();
+    this.getPost(this.id);
   }
 
-  getPost(): void {
-    this.postService.getPost(this.id).subscribe((post) => {
-      this.post = post;
-      this.topLevelComments = post.comments.filter(
-        (comment) => comment.parent_comment_id === null,
-      );
-    });
+  private getPost(id: number): void {
+    this.store.dispatch(loadPostDetails({ id }));
+    this.postService
+      .getPost(id)
+      .pipe(
+        catchError((error: any) => {
+          this.store.dispatch(loadPostDetailsFailure({ id, error }));
+          return of(undefined);
+        }),
+      )
+      .subscribe((post) => {
+        if (post) {
+          this.store.dispatch(loadPostDetailsSuccess({ id, data: post.data }));
+        }
+      });
   }
 
-  get id(): number {
+  private get id(): number {
     return Number(this.route.snapshot.paramMap.get('id'));
   }
 }

@@ -1,20 +1,22 @@
-<ng-template [ngIf]="post" [ngIfElse]="loading">
+<ng-template [ngIf]="(post$ | async)?.value" [ngIfElse]="loading">
   <div class="post-detail">
-    <app-post-item [post]="post"></app-post-item>
+    <app-post-item [post]="(post$ | async)?.value!"></app-post-item>
 
-    <div *ngIf="post.text" class="post-detail__text">{{ post.text }}</div>
+    <div *ngIf="(post$ | async)?.value?.text" class="post-detail__text">
+      {{ (post$ | async)?.value?.text }}
+    </div>
 
     <div class="post-detail__content-container">
       <div>
-        <strong>{{ post.comment_count }} comments</strong>
+        <strong>{{ (post$ | async)?.value?.comment_count }} comments</strong>
         <hr />
       </div>
     </div>
 
     <app-comment
-      *ngFor="let comment of topLevelComments"
+      *ngFor="let comment of (post$ | async)?.topLevelComments"
       [comment]="comment"
-      [allComments]="post.comments"
+      [allComments]="(post$ | async)?.value?.comments!"
     ></app-comment>
   </div>
 </ng-template>

@@ -26,17 +26,7 @@ export class PostService {
       .pipe(map((response) => response.data));
   }
 
-  getPost(id: number): Observable<DetailedPost> {
-    return this.http.get<{ data: DetailedPost }>(`${this.postsUrl}/${id}`).pipe(
-      map((response) => response.data),
-      catchError(this.handleError<DetailedPost>(`getPost id=${id}`)),
-    );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
+  getPost(id: number): Observable<{ data: DetailedPost }> {
+    return this.http.get<{ data: DetailedPost }>(`${this.postsUrl}/${id}`);
   }
 }

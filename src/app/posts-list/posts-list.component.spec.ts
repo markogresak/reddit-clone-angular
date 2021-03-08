@@ -5,8 +5,8 @@ import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { PostsListComponent } from './posts-list.component';
 
 describe('PostsListComponent', () => {
-  let store: MockStore;
   let component: PostsListComponent;
+  let store: MockStore;
   let fixture: ComponentFixture<PostsListComponent>;
 
   beforeEach(async () => {
