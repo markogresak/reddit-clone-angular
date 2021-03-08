@@ -9,11 +9,11 @@ import { Comment } from '../comment';
 export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() allComments: Comment[];
-  @Input() isNested: boolean = false;
-  @Input() hideNested: boolean = false;
+  @Input() isNested = false;
+  @Input() hideNested = false;
 
   childComments: Comment[];
-  collapsed: boolean = false;
+  collapsed = false;
 
   constructor() {}
 
@@ -23,7 +23,7 @@ export class CommentComponent implements OnInit {
     );
   }
 
-  toggleCollapsed() {
+  toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
   }
 }

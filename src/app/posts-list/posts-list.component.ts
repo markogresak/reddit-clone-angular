@@ -24,7 +24,7 @@ export class PostsListComponent implements OnInit {
     private store: Store<AppState>,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getPosts();
   }
 

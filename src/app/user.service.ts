@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DetailedUser } from './detailed-user';
 
 @Injectable({
@@ -20,16 +20,8 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUser(id: number): Observable<DetailedUser> {
-    return this.http.get<{ data: DetailedUser }>(`${this.usersUrl}/${id}`).pipe(
-      map((response) => response.data),
-      catchError(this.handleError<DetailedUser>(`getUser id=${id}`)),
-    );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
+    return this.http
+      .get<{ data: DetailedUser }>(`${this.usersUrl}/${id}`)
+      .pipe(map((response) => response.data));
   }
 }
