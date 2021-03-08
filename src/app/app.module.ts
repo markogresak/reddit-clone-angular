@@ -21,6 +21,14 @@ import { reducers, metaReducers } from './state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
+const extModules = environment.production
+  ? []
+  : [
+      StoreDevtoolsModule.instrument({
+        maxAge: 25,
+      }),
+    ];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,10 +52,7 @@ import { environment } from '../environments/environment';
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
+    ...extModules,
   ],
   providers: [],
   bootstrap: [AppComponent],
