@@ -21,10 +21,9 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<{ data: Post[] }>(this.postsUrl).pipe(
-      map((response) => response.data),
-      catchError(this.handleError<Post[]>('getPosts', [])),
-    );
+    return this.http
+      .get<{ data: Post[] }>(this.postsUrl)
+      .pipe(map((response) => response.data));
   }
 
   getPost(id: number): Observable<DetailedPost> {

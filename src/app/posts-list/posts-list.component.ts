@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { PostService } from '../post.service';
 import { AppState } from '../state/AppState';
-import { loadPosts, loadPostsSuccess } from '../state/posts.actions';
+import {
+  loadPosts,
+  loadPostsFailure,
+  loadPostsSuccess,
+} from '../state/posts.actions';
 import { selectPosts } from '../state/posts.selectors';
 
 @Component({
@@ -25,8 +30,18 @@ export class PostsListComponent implements OnInit {
 
   private getPosts(): void {
     this.store.dispatch(loadPosts());
-    this.postService.getPosts().subscribe((posts) => {
-      this.store.dispatch(loadPostsSuccess({ data: posts }));
-    });
+    this.postService
+      .getPosts()
+      .pipe(
+        catchError((error: any) => {
+          this.store.dispatch(loadPostsFailure({ error }));
+          return of(undefined);
+        }),
+      )
+      .subscribe((posts) => {
+        if (posts) {
+          this.store.dispatch(loadPostsSuccess({ data: posts }));
+        }
+      });
   }
 }
