@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../post';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { PostService } from '../post.service';
+import { AppState } from '../state/AppState';
+import { loadPosts, loadPostsSuccess } from '../state/posts.actions';
+import { selectPosts } from '../state/posts.selectors';
 
 @Component({
   selector: 'app-posts-list',
@@ -8,20 +12,21 @@ import { PostService } from '../post.service';
   styleUrls: ['./posts-list.component.scss'],
 })
 export class PostsListComponent implements OnInit {
-  posts: Post[] = [];
-  isLoading: boolean;
+  posts$ = this.store.pipe(select(selectPosts));
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private store: Store<AppState>,
+  ) {}
 
   ngOnInit() {
     this.getPosts();
   }
 
-  getPosts(): void {
-    this.isLoading = true;
+  private getPosts(): void {
+    this.store.dispatch(loadPosts());
     this.postService.getPosts().subscribe((posts) => {
-      this.isLoading = false;
-      this.posts = posts;
+      this.store.dispatch(loadPostsSuccess({ data: posts }));
     });
   }
 }
